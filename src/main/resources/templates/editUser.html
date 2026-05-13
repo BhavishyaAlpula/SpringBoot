@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+	<link rel="stylesheet" th:href="@{/css/base.css}">
+	<link rel="stylesheet" th:href="@{/css/editTasks.css}">
+</head>
+<body>
+<center>
+<div id="mainContent">
+<div id="customAlert"  class="custom-alert" style="display:none;">
+    <div class="custom-alert-content">
+        <p id="customAlertMessage">Are you sure! You want to Delete Use</p>
+        <button onclick="confirm(event)">Yes</button>
+        <button onclick="closeAlert()">No</button>
+    </div>
+	</div>
+	<div class="editUserForm" id="editUserForm">
+		<form>
+		   <input type="text" name="userId" id="editUserId" style="display:none">	
+		   <label>User Name:</label>
+		   <input type="text" id="editUsername"/>
+		   <label>Password:</label>
+		   <input type="text" value="********" id="password"/>
+		   <label>Name:</label>
+		   <input type="text" id="editName"/>
+		   <label>Email:</label>
+		   <input type="text" id="editEmail"/>
+		   <label>Phone:</label>
+		   <input type="text" id="editPhno"/>
+		   
+		   <div class="buttons">
+		   <input type="button" value="Update User" onclick="updateUser(event)"/>
+		   <input type="button" value="Delete User" onclick="deleteAlert(event)"/>
+		   </div>
+		   <a class="user-link" onclick="secureNavigate('/home')">Back to Home</a>
+		</form>
+    </div>  
+</div>
+	<script>
+	function hydrateEditUser() {
+	    const raw = sessionStorage.getItem("editUserData");
+	    if (!raw) return;
+
+	    const u = JSON.parse(raw);
+
+	    const set = (id, v) => {
+	        const el = document.getElementById(id);
+	        if (el) el.value = v ?? "";
+	    };
+
+	    set("editUserId", u.id);
+	    set("editUsername", u.username);
+	    set("editName", u.name);
+	    set("editEmail", u.email);
+	    set("editPhno", u.phno);
+	}
+
+	// WAIT until editUser.html arrives in #mainContent
+	const observer = new MutationObserver(() => {
+	    if (document.getElementById("editUserForm") || document.querySelector(".editUserForm")) {
+	        // Content is present  hydrate now
+	        hydrateEditUser();
+	        observer.disconnect();
+	    }
+	});
+
+	observer.observe(document.body, { childList: true, subtree: true });
+
+</script>
+	<script th:src="@{/js/editUser.js}"></script>
+	</center>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+	<link rel="stylesheet" th:href="@{/css/base.css}">
+	<link rel="stylesheet" th:href="@{/css/editTasks.css}">
+</head>
+<body>
+<div id="mainContent">
+<div class="pageWrapper">
+<div id="customAlert"  class="custom-alert" style="display:none;">
+    <div class="custom-alert-content">
+        <p id="customAlertMessage">Are you sure! You want to Delete Task</p>
+        <button onclick="confirm(event)">Yes</button>
+        <button onclick="closeAlert()">No</button>
+    </div>
+	</div>
+	<div class="editTaskForm">
+		<form>
+		<input type="text" id="taskOwnerUserID" th:value="${taskOwnerUserId}" style="display:none">
+		   <input type="text" th:value="${taskDetails.id}" name="taskId" id="taskId" style="display:none">	
+		   <label>Task Name:</label>
+		   <input type="text" th:value="${taskDetails.taskName}" id="taskName"/>
+		   <label>Description:</label>
+		   <input type="text" th:value="${taskDetails.description}" id="description"/>
+		   <label>Due Date:</label>
+		   <input type="date" th:value="${taskDetails.dueDate}" id="dueDate"/>
+		   
+		   <div class="buttons">
+		   <input type="button" value="Update Task" onclick="updateTask(event)"/>
+		   <input type="button" value="Delete Task" onclick="deleteAlert(event)"/>
+		   </div>
+		   <a class="tasks-link" id="backToTasksLink">Back to Tasks</a>
+		</form>
+    </div>
+    </div>
+</div>
+	<script th:src="@{/js/utilityFunction.js}"></script>
+	<script th:src="@{/js/editTasks.js}"></script>
+</body>
+</html>

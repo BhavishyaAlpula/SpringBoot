@@ -1,0 +1,95 @@
+body {
+     font-family: 'Segoe UI', sans-serif;
+     margin: 0;
+     padding: 0; 
+     overflow: hidden;
+}
+
+
+
+#noTasks{
+	text-align:center;
+	font-weight: bold;
+    font-size: 20px;
+	
+}
+
+
+p,table{
+	margin: 40px auto 0 auto;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+th, tr,td {
+  padding: 10px;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+th:last-child, td:last-child {
+  border-right: none;
+}
+tr:last-child td{
+	border-bottom: none;
+}
+
+
+
+
+.pagination {
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link,#addTasks {
+    display: inline-block;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+#addTasks{
+	display:block;
+	margin: 30px auto 0 auto;
+	border:none;
+	background-color:  #024185b3;
+	color:white;
+}
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.page-link:hover {
+    background-color: #e2e6ea;
+}
+#backToUsers{
+	display:flex;
+	align-items:left;
+ 	color: #007bfa;
+    text-decoration: none;
+    text-align:left;
+    font-size:small;
+    margin:20px;
+}
+#backToUsers:hover{
+	text-decoration:underline;
+	cursor:pointer;
+}

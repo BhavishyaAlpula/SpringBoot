@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Users</title>
+	<link rel="stylesheet" th:href="@{/css/base.css}">
+	<link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>	
+<div id="mainContent">
+	<div th:if="${#lists.isEmpty(users)}">
+        <p id="noUsers">No Users available.</p>
+    </div>
+	<div th:unless="${#lists.isEmpty(users)}">
+		<table id="usersTable">
+			<thead>
+			<tr>
+				<th>s.no</th>
+				<th>User Name</th>
+				<th>Phone Number</th>
+				<th>No. of Tasks</th>
+				<th sec:authorize="hasRole('ADMIN')">Actions</th>
+			</tr>
+			</thead>
+			<tbody id="existingTable">
+				<tr th:each="users, iterStat : ${users}">
+				  <td th:text="${currentPage * 5 + iterStat.index + 1}"></td>
+				 <td th:text="${users.Name}"></td>
+				 <td th:text="${users.Phno}"></td>
+				 <td th:text="${tasksCount[users.id]}"></td>
+				 <td sec:authorize="hasRole('ADMIN')"> 
+				 <button class="openTasksBtn" id="openTasksOfUser" th:onclick="|secureNavigate('/openTasks?userId=${users.id}&page=0&size=5')|">Open</button>
+				 </td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	
+	<ul class="pagination"
+    th:attr="data-total-pages=${totalPages}, data-current-page=${currentPage},
+    		 data-endpoint-prefix=@{/getUsers},
+             data-page-size=5">
+		<li class="page-item">
+		    <button class="page-link" data-page="prev">Previous</button>
+		</li>
+		<!-- Loop -->
+		<th:block th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+   			 <li class="page-item" th:classappend="${i} == ${currentPage} ? ' active'">
+        	 <button class="page-link" th:attr="data-page=${i}" th:text="${i + 1}"></button>
+    		</li>
+		</th:block>
+		<li class="page-item">
+		    <button class="page-link" data-page="next">Next</button>
+		</li>
+    </ul>
+</div>
+
+<script th:src="@{/js/utilityFunction.js}"></script>
+<script th:src="@{/js/users.js}"></script>
+<script>
+  // Make endpointBuilder available
+  window.usersEndpointBuilder = function(page, size) {
+    return `/users?page=${page}&size=${size}`;
+  };
+
+  // Attach once when the page loads
+  document.addEventListener("DOMContentLoaded", () => {
+	  window.currentEndpointBuilder = window.usersEndpointBuilder;
+    setupPagination();
+  });
+</script>
+
+
+</body>
+</html>

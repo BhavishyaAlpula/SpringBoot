@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tasks Management</title>
+   	<link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<script>
+    localStorage.removeItem("token"); // Clear old token
+</script>
+
+<body>
+<div class="login-box">
+     <h1>Login</h1>
+     <form id="loginForm">
+     	<label>Enter your Username</label>
+         <input id= "username" type="text" name="username" placeholder="Username" required />
+         <label>Enter your Password</label>
+         <input id="password" type="password" name="password" placeholder="Password" required />
+         <input type="submit" value="Login" />
+         
+         <div class="signup-link">
+         <h4>Don't have an Account?</h4>
+         <a href="signup"><h4>Signup</h4></a>
+         </div>
+         
+     </form>
+ </div>
+
+<script>
+
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+           e.preventDefault();
+
+           const username = document.getElementById("username").value;
+           const password = document.getElementById("password").value;
+
+           const response = await fetch("/authenticate", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json"
+               },
+               body: JSON.stringify({ username, password })
+           });
+
+           if (response.ok) {
+               const data = await response.json();
+               localStorage.setItem("token", data.token);
+               const token = data.token;
+               localStorage.setItem("token", token);
+
+               // 1️⃣ Use fetch to send token
+               fetch("/home", {
+                   method: "GET",
+                   headers: {
+                       "Authorization": "Bearer " + token
+                   }
+               })
+               .then(res => res.text())
+               .then(html => {
+                   // 2️⃣ Replace entire page with the returned HOME HTML
+                   document.open();
+                   document.write(html);
+                   document.close();
+               })
+               .catch(err => {
+                   alert("Cannot load home page");
+               });
+           } 
+           else {
+               alert("Login failed!");
+           }
+       });
+   </script>
+   <script th:src="@{/js/utilityFunction.js}"></script>
+</body>
+</html>

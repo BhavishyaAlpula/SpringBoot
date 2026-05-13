@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Tasks management</title>
+	<link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+    <div class="signin-box">
+        <h1>Sign Up</h1>
+        	<form th:action="@{/signup}" method="post">
+        	<input type="text" name="name" placeholder="Name" required />
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <input type="text" name="email" placeholder="Email" required />
+            <input type="tel" name="phno" placeholder="Mobile Number" pattern="[0-9]{10}" maxlength="10" required/>
+            <select name="roleName" required>
+            <option value="" disabled selected hidden class="role">Role</option>
+            <option>User</option>
+            <option>Admin</option>
+            </select>
+            <input type="submit" value="Signin" />
+            
+            <div class="login-link">
+            <h4>Already Signed in?</h4>
+            <a href="login"><h4>Login</h4></a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

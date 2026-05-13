@@ -1,0 +1,88 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("/images/1.jpg");
+ 	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ .signin-box {
+     background-color: rgb(255,255,255,0.4);
+     padding: 30px;
+     border-radius: 8px;
+     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+     width: 250px;
+     flex-shrink: 0;
+     height:500px;
+ }
+
+ .signin-box h1 {
+ 	 margin-top:0px;
+     margin-bottom: 20px;
+     color: #2c3e50;
+     text-align:center;
+ }
+
+.signin-box input[type="text"],
+.signin-box input[type="password"],
+.signin-box input[type="tel"],select {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+select{
+	width:101%;
+}
+
+select:required:invalid {
+    color: gray;
+  }
+
+  option {
+    color: black;
+  }
+
+
+.signin-box input[type="submit"] {
+	width:30%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display:block;
+    margin:0 auto;
+    margin-top:10px;
+}
+
+.signin-box input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+.login-link {
+	 display: flex;
+   	 align-items:center;
+   	 justify-content:center;
+   	 gap:10px;
+	 text-align: center;
+	 margin-top: 5px;
+	 font-size:small;
+}
+
+.login-link a {
+    font-size: small;
+    color: #00e4fd;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

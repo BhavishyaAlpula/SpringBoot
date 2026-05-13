@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+	<link rel="stylesheet" th:href="@{/css/base.css}">
+	<link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body th:attr="data-redirect-url='/openTasks?userId='+${userId}">
+<center>
+
+<div id="mainContent">
+<a  id="backToUsers" onclick="secureNavigate('/getUsers')">Back To Users</a>
+
+<h2 th:text="${UsersName}"></h2>
+	<div th:if="${#lists.isEmpty(tasks)}">
+        <p id="noTasks">No tasks available.</p>
+    </div>
+    <input type="hidden" id="usersUserId" th:value="${userId}">
+	<table id="taskTable" style="display:none">
+	<thead>
+			<tr>
+				<th>s.no</th>
+				<th>Task Name</th>
+				<th>Description</th>
+				<th>Due date</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody id="taskBody">
+			<!-- appendChild(newRow) will add the row to table -->
+			</tbody>
+	</table>
+	<div th:unless="${#lists.isEmpty(tasks)}">
+		<table>
+			<thead>
+			<tr>
+				<th>s.no</th>
+				<th>Task Name</th>
+				<th>Description</th>
+				<th>Due date</th>
+				<th sec:authorize="hasRole('ADMIN')">Actions</th>
+			</tr>
+			</thead>
+			<tbody id="existingTable">
+				
+				<tr th:each="task, iterStat : ${tasks}">
+				 <td th:text="${currentPage * 5 + iterStat.index + 1}"></td>
+				 <td th:text="${task.taskName}"></td>
+				 <td th:text="${task.description}"></td>
+				 <td th:text="${task.dueDate}"></td>
+				 <td sec:authorize="hasRole('ADMIN')"><button th:onclick="|secureNavigate('editTasks?taskId=${task.id}')|">Edit</button></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	
+	<button onclick="showAddTask()" id="addTasks" sec:authorize="hasRole('ADMIN')">Add Tasks</button>
+	
+	
+	<div th:unless="${#lists.isEmpty(tasks)}">
+	<ul class="pagination"
+    th:attr="data-total-pages=${totalPages}, data-current-page=${currentPage},
+   			data-endpoint-prefix=@{/openTasks(userId=${userId})},
+        	data-page-size=5
+    		">
+		<li class="page-item">
+		    <button class="page-link" data-page="prev">Previous</button>
+		</li>
+		<!-- Loop -->
+		<th:block th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+   			 <li class="page-item" th:classappend="${i} == ${currentPage} ? ' active'">
+        	 <button class="page-link" th:attr="data-page=${i}" th:text="${i + 1}"></button>
+    		</li>
+		</th:block>
+		<li class="page-item">
+		    <button class="page-link" data-page="next">Next</button>
+		</li>
+    </ul>
+	</div>
+</div>
+<script th:src="@{/js/utilityFunction.js}"></script>
+</body>
+</center>
+</html>

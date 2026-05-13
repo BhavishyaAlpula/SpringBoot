@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="ISO-8859-1">
+  <title th:text="${pageTitle} ?: 'App'">App</title>
+  <link rel="stylesheet" th:href="@{/css/base.css}">
+</head>
+<body>
+ 
+<div th:fragment="profileHeader">
+     <header>
+	<div class="header-left">
+        <div id="overlay" class="overlay" style="display:none;"></div>
+        	<div class="profile" id="profile"
+             onclick="openProfile()"
+             th:attr="data-username=${username}"
+             th:text="${username.substring(0,1).toUpperCase()}">
+            </div>
+
+        <div class="user-details-panel" id="userDetailsPanel" style="display:none;">
+            <div class="controls">
+                <span><strong><u>Your Details</u></strong></span>
+                <div class="icons">
+                    <span class="editUser" onclick="editUser()">&#9998;</span>
+                    <span class="close-btn" onclick="closeUserDetails()">&#10006;</span>
+                </div>
+            </div>
+
+            <div id="details" class="user-details">
+                <input type="text" id="userId" th:value="${userDetails.id}" style="display:none;"/>
+
+                <div class="form-row">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" th:value="${userDetails.username}"/>
+                </div>
+
+                <div class="form-row">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" th:value="${userDetails.name}"/>
+                </div>
+
+                <div class="form-row">
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" value="********"/>
+                </div>
+
+                <div class="form-row">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" th:value="${userDetails.email}"/>
+                </div>
+
+                <div class="form-row">
+                    <label for="phno">Phone:</label>
+                    <input type="text" id="phno" th:value="${userDetails.phno}"/>
+                </div>
+            </div>
+        </div>
+
+        <div id="homeIcon" th:if="${pageTitle != 'Home'}">
+            <a onclick="secureNavigate('/home')"><img src="/images/home3.png" alt="Home"></a>
+        </div>
+	</div>
+        <div class="right-actions">
+            <a sec:authorize="hasRole('ADMIN')" id="usersLink" onclick="secureNavigate('/getUsers')">Users</a>
+            <a id="logout" onclick="logout(event)">Logout</a>
+        </div>
+</header>
+</div>
+
+
+<!--  <main id="mainContent" th:attr="data-redirect-url=${redirectUrl}">
+   <div id="pageContent">
+     <div th:insert="${contentTemplate} :: content"></div>
+   </div>
+ </main>-->
+
+<script th:src="@{/js/utilityFunction.js}"></script>
+</body>
+</html>

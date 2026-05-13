@@ -1,0 +1,129 @@
+body {
+     font-family: 'Segoe UI', sans-serif;
+     margin: 0;
+     padding: 0; 
+     overflow: hidden;
+}
+header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #024185b3;
+  padding: 20px 20px;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.right-actions {
+  margin-left: auto;     /* pushes this block to the right */
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+#homeIcon img{
+	width:30px;
+	height:30px;
+}
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 20px;
+    cursor:pointer;
+}
+
+header h1 {
+	position:absolute;
+	left:50%;
+	transform:translateX(-50%);
+    margin: 0;
+    text-align: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+    cursor:pointer;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+/* User details panel */
+.user-details-panel {
+    position: absolute;
+    top: 83px; 
+    left:0;
+    background-color: #fff;
+    color:black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 999;
+    width: 250px;
+}
+
+
+.close-btn ,.editUser{
+    float: right;
+    font-size: 18px;
+    cursor: pointer;
+}
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    top:30px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-row label {
+    width: 100px;
+    font-weight: bold;
+    text-align:right;
+}
+
+.form-row input {
+    width:100px;
+    padding:5px;
+    border:none;
+}
+.controls{
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+	justify-content:space-between;
+	margin-bottom:30px;
+}
+.icons{
+	display:flex;
+	gap:20px;
+	align-items:center;
+}
